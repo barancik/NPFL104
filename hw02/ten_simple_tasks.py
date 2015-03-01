@@ -3,7 +3,6 @@
 
 import unittest
 import string
-import pdb
 from collections import Counter
 import math
 
@@ -109,8 +108,6 @@ class Circle():
    
     def __contains__(self,point):
         return math.sqrt(((self.centre[0]-point[0]) ** 2 + (self.centre[1]-point[1]) ** 2)) <= self.radius
-
-#pdb.set_trace()
 
 class TestSequenceFunctions(unittest.TestCase):
 
