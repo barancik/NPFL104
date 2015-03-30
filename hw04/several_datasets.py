@@ -3,16 +3,11 @@
 
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
-#from matplotlib.colors import ListedColormap
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 #from sklearn.preprocessing import StandardScaler
-from sklearn.datasets import make_moons, make_circles, make_classification
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
-import pdb
 
 def adult_data():
     names = ("age, workclass, fnlwgt, education, education-num, "
@@ -21,16 +16,16 @@ def adult_data():
              "native-country, income").split(', ')
     train=pd.read_csv("adult.data", names=names,delimiter=", ").dropna()
     test=pd.read_csv("adult.test", names=names,skiprows=1,delimiter=", ").dropna()
-    #
+    
     y_train=train.income.apply( lambda x: 0 if x=="<=50K" else 1)
     y_test=test.income.apply( lambda x: 0 if x=="<=50K." else 1)
     X_train=train.drop("income",1).T.to_dict().values()
     X_test=test.drop("income",1).T.to_dict().values()
-    #
+    
     v = DictVectorizer(sparse=False)
     X_train_encoded=v.fit_transform(X_train)
     X_test_encoded=v.transform(X_test)
-    #
+    
     return X_train_encoded, X_test_encoded, y_train, y_test
 
 def credit_data():
@@ -51,7 +46,7 @@ def cloud_data():
 def aesop_data():
     header=open("aesop.data","r").readline().strip().split(",")
     data=pd.read_csv("aesop.data",skiprows=1,names=header)
-    #
+    
     y = data.student
     X = data.drop("student",1).T.to_dict().values()
     v = DictVectorizer(sparse=False)
