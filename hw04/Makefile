@@ -21,7 +21,7 @@ URL3=http://archive.ics.uci.edu/ml/machine-learning-databases/adult/
 #URL=http://ufallab.ms.mff.cuni.cz/~bojar/NPFL104/$(DATA_FILE)
 
 all: $(D1) $(D2) $(c) $(A1) $(A2) $(A4)
-	ls -lt
+	./several_datasets.py
 
 $(D1):
 	wget $(URL1)$(D1)
