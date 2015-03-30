@@ -6,4 +6,5 @@ all: $(DATA_FILE)
 
 $(DATA_FILE):
 	wget $(URL)
+	tar xzf $(DATA_FILE)
 
