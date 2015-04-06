@@ -48,7 +48,7 @@ def plot(title,data):
     plt.xscale("log")
     plt.legend(loc="best")
 
-def avg_error(ds, ticks=30, repetitions=10):
+def avg_error(ds, ticks=20, repetitions=10):
     X_train, X_test, y_train, y_test = ds
     estimator=RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
     train_error, test_error = defaultdict(int), defaultdict(int)
