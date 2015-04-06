@@ -22,24 +22,17 @@ $(D2):
 	wget $(URL1)$(D2)
 
 $(C1): $(C2)
-	#noop
+	
 
-$(C2): $(C)
+$(C2):
+	wget $(URL1)$(C)
 	unzip -q $(C)
-
-$(C):
-	wget $(URL1)/$(C)
-$(A1):
-	wget $(URL3)$(A1)
-
-$(A2):
-	wget $(URL3)$(A2)
 
 $(A4):
 	wget $(AESOP)
 	cat $(A3) | crypt | sed 's/,$$//' > $(A4)
 
-
 clean:
 	rm -rf [aA]*
-	rm -rf $(c) 
+	rm -rf clouds_dataset*
+	rm -rf credit.*

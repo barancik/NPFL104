@@ -65,7 +65,7 @@ def avg_error(ds, ticks=30, repetitions=10):
     return arr,avg_train_error, avg_test_error   
      
 if __name__ == '__main__':
-    repetitions=5
+    repetitions=10
     plot("Credit data",avg_error(credit_data(),repetitions=repetitions))
     plot("Cloud data",avg_error(cloud_data(),repetitions=repetitions))
     plot("Aesop data",avg_error(aesop_data(),repetitions=repetitions))
