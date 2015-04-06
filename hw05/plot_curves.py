@@ -39,33 +39,34 @@ def aesop_data():
 def plot(title,data):
     arr, train_error, test_error = data
     plt.figure()
-    plt.xkcd()
+   # plt.xkcd()
     plt.title(title)
     plt.xlabel("Training examples")
     plt.ylabel("Error")
-    plt.plot(arr,train_error,'o-', color="r",label="Training error")
-    plt.plot(arr,test_error, 'o-', color="g",label="Test error")
+    plt.plot(arr,train_error,'o-', color="r",label="Training data")
+    plt.plot(arr,test_error, 'o-', color="g",label="Test data")
     plt.xscale("log")
     plt.legend(loc="best")
 
 def avg_error(ds, ticks=30, repetitions=10):
     X_train, X_test, y_train, y_test = ds
     estimator=RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
-    train_error, test_error = defaultdict(list), defaultdict(list)
+    train_error, test_error = defaultdict(int), defaultdict(int)
     n=X_train.shape[0]
     arr=np.logspace(np.log2(10),np.log2(n),base=2,num=ticks)
     for a in range(repetitions):
         X_train, y_train = shuffle(X_train, y_train)
-        for x in arr:
+        for i,x in enumerate(arr):
 	    clf=estimator.fit(X_train[:x,:],y_train[:x])
-	    train_error[a].append(1 - estimator.score(X_train[:x,:],y_train[:x]))
-	    test_error[a].append(1 - estimator.score(X_test,y_test))
-    avg_train_error=[sum([train_error[x][y] for x in range(repetitions)])/repetitions for y in range(ticks)]
-    avg_test_error=[sum([test_error[x][y] for x in range(repetitions)])/repetitions for y in range(ticks)]
+	    train_error[i] += (1-estimator.score(X_train[:x,:],y_train[:x]))
+	    test_error[i] += (1-estimator.score(X_test,y_test))
+    avg_train_error=[train_error[x]/repetitions for x in range(ticks)]
+    avg_test_error=[test_error[x]/repetitions for x in range(ticks)]
     return arr,avg_train_error, avg_test_error   
-   
+     
 if __name__ == '__main__':
-    plot("Credit data",avg_error(credit_data(),repetitions=50))
-    plot("Cloud data",avg_error(cloud_data(),repetitions=50))
-    plot("Aesop data",avg_error(aesop_data(),repetitions=50))
+    repetitions=5
+    plot("Credit data",avg_error(credit_data(),repetitions=repetitions))
+    plot("Cloud data",avg_error(cloud_data(),repetitions=repetitions))
+    plot("Aesop data",avg_error(aesop_data(),repetitions=repetitions))
     plt.show()

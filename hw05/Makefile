@@ -1,21 +1,19 @@
 D1=credit.train.txt
 D2=credit.test.txt
 
-A1=adult.data
-A2=adult.test
-
 A3=AESOP.v2.encrypted
 A4=aesop.data
 
-c=clouds_dataset
-#loud_data = $(c)/clouds100_test.csv $(c)/clouds1k_test.csv $(c)/clouds100_train.csv $(c)/clouds1k_train.csv
+C=clouds_dataset.zip
+C1=clouds_dataset/clouds1k_test.csv 
+C2=clouds_dataset/clouds1k_train.csv
 
 AESOP=https://atrey.karlin.mff.cuni.cz/~hajicja/AESOP_dataset/$(A3)
 URL1=http://ufal.mff.cuni.cz/~zabokrtsky/courses/npfl104/html/classification_data/
 URL3=http://archive.ics.uci.edu/ml/machine-learning-databases/adult/
 
-all: $(D1) $(D2) $(c) $(A1) $(A2) $(A4)
-	./several_datasets.py
+all: $(D1) $(D2) $(C1) $(A4)
+	./plot_curves.py
 
 $(D1):
 	wget $(URL1)$(D1)
@@ -23,11 +21,14 @@ $(D1):
 $(D2):
 	wget $(URL1)$(D2)
 
-$(c): $(c).zip
-	unzip -q $(c).zip
+$(C1): $(C2)
+	#noop
 
-$(c).zip:
-	wget $(URL1)/$(c).zip
+$(C2): $(C)
+	unzip -q $(C)
+
+$(C):
+	wget $(URL1)/$(C)
 $(A1):
 	wget $(URL3)$(A1)
 
@@ -37,3 +38,8 @@ $(A2):
 $(A4):
 	wget $(AESOP)
 	cat $(A3) | crypt | sed 's/,$$//' > $(A4)
+
+
+clean:
+	rm -rf [aA]*
+	rm -rf $(c) 
