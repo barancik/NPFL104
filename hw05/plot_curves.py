@@ -7,7 +7,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 #from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier #, AdaBoostClassifier, GradientBoostingClassifier
-from sklearn.learning_curve import learning_curve
+#from sklearn.learning_curve import learning_curve
 from sklearn import cross_validation
 import matplotlib.pyplot as plt
 from sklearn.utils import shuffle
@@ -53,7 +53,7 @@ def avg_error(ds, ticks=20, repetitions=10):
     estimator=RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
     train_error, test_error = defaultdict(int), defaultdict(int)
     n=X_train.shape[0]
-    arr=np.logspace(np.log2(10),np.log2(n),base=2,num=ticks)
+    arr=[int(x) for x in np.logspace(np.log2(10),np.log2(n),base=2,num=ticks)]
     for a in range(repetitions):
         X_train, y_train = shuffle(X_train, y_train)
         for i,x in enumerate(arr):
@@ -65,7 +65,7 @@ def avg_error(ds, ticks=20, repetitions=10):
     return arr,avg_train_error, avg_test_error   
      
 if __name__ == '__main__':
-    repetitions=10
+    repetitions=50
     plot("Credit data",avg_error(credit_data(),repetitions=repetitions))
     plot("Cloud data",avg_error(cloud_data(),repetitions=repetitions))
     plot("Aesop data",avg_error(aesop_data(),repetitions=repetitions))
