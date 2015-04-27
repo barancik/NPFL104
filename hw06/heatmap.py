@@ -8,7 +8,7 @@ from matplotlib.colors import Normalize
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import load_iris
-from sklearn.cross_validation import StratifiedShuffleSplit, cross_validation
+from sklearn.cross_validation import StratifiedShuffleSplit, cross_val_score
 from sklearn.grid_search import GridSearchCV
 
 # Utility function to move the midpoint of a colormap to be around
@@ -47,7 +47,7 @@ def kernel_cv(X,y,cv=4):
     scores={}
     for x in kernels:
         clf = SVC(kernel=x) #', C=1)
-        score = cross_validation.cross_val_score(clf, X, y, cv=cv)
+        score = cross_val_score(clf, X, y, cv=cv)
         scores[x]=sum(scores)/10
     return max(scores, key=scores.get)
     
@@ -58,7 +58,7 @@ def heat_map(X,y,cv=2):
     param_grid = dict(gamma=gamma_range, C=C_range)
     grid = GridSearchCV(SVC(), param_grid=param_grid, cv=cv)
     grid.fit(X, y)
-
+ip
 
 
 ##############################################################################
