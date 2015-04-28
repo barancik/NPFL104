@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print "1. Cross-validate to choose between linear, poly and RBF:",
     cv = StratifiedShuffleSplit(y, n_iter=3, train_size=0.01, test_size=0.005)
     print kernel_cv(X,y,cv=cv)
-    print "2. Creating the heatmap, for speedup on very small dataset - the results may vary..."
+    print "2. Creating the heatmap, for speedup on very small datasets - results may vary..."
     grid,gamma_range,C_range=heat_map(X,y,cv=cv)
     scores = [x[1] for x in grid.grid_scores_]
     scores = np.array(scores).reshape(len(C_range), len(gamma_range))
