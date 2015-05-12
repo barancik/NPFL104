@@ -4,15 +4,10 @@
 import numpy as np
 import random
 from collections import defaultdict
-import matplotlib.cm as cmx
-import matplotlib.colors as colors
 from sklearn import cluster
-
-from time import time
 from sklearn import metrics
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import scale
 
 def pamap_easy():
     train=np.loadtxt("pamap_easy.train.txt")
