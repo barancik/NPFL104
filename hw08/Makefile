@@ -1,3 +1,3 @@
 all:
-	./heatmap.py
+	./kmeans.py
 

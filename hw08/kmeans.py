@@ -51,7 +51,7 @@ def print_scores(labels,guessed_labels, inertia, name, data):
              metrics.v_measure_score(labels, guessed_labels),
              metrics.adjusted_rand_score(labels, guessed_labels),
              metrics.adjusted_mutual_info_score(labels,  guessed_labels),
-             metrics.silhouette_score(data,guessed_labels)))#, metric='euclidean', sample_size=300)))
+             metrics.silhouette_score(data,guessed_labels,metric='euclidean', sample_size=300)))
 
 def bench_k_means(estimator, name, data, labels):
     estimator.fit(data)
