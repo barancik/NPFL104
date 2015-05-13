@@ -16,13 +16,13 @@ def pamap_easy():
     X_test, y_test =test[:,:-1], test[:,-1]
     return np.vstack((X_train,X_test)), np.hstack((y_train, y_test))
 
-def _new_clusters(X,centroids):
+def _new_centroids(X,centroids):
     clusters=defaultdict(list)
     for point in X:
         closest=min([[i,np.linalg.norm(point-x)] for i,x in enumerate(centroids)],key=lambda z:z[1])[0]
         clusters[closest].append(point)
     centroids=[np.mean(x,axis=0) for x in clusters.values()]
-    inertia=sum([sum([np.linalg.norm(centroids[y]-x) for x in clusters[y]]) for y in clusters.keys()])
+    inertia=sum([sum([np.linalg.norm(centroids[y]-x)**2 for x in clusters[y]]) for y in clusters.keys()])
     return centroids,inertia
 
 def _converged(new,old):
@@ -33,7 +33,7 @@ def k_means(X,n_centroids):
     old_centroids=random.sample(X,n_centroids)
     while not _converged(centroids,old_centroids):
         old_centroids=centroids
-        centroids, inertia =_new_clusters(X,centroids)
+        centroids, inertia =_new_centroids(X,centroids)
         print "Inertia:",inertia
     return np.array([min([[i,np.linalg.norm(point-x)] for i,x in enumerate(centroids)],
 			 key=lambda z:z[1])[0] for point in X]), inertia
