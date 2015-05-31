@@ -61,8 +61,6 @@ def evaluate_dataset(ds,n=1000):
     w=perceptron_learn(X_train,y_train,n=n)
     print "Training data accuracy:",perceptron_test(X_train,y_train,w)
     print "Test data accuracy:",perceptron_test(X_test,y_test,w)
-    
-
 
 if __name__ == "__main__":
      print "Artificial_data:"
