@@ -68,9 +68,9 @@ if __name__ == "__main__":
     bench_k_means(KMeans(init='random', n_clusters=n_centroids, n_init=10),
               name="random", data=X, labels=y)
 
-    pca = PCA(n_components=n_centroids).fit(X)
-    bench_k_means(KMeans(init=pca.components_, n_clusters=n_centroids, n_init=1),
-              name="PCA-based", data=X, labels=y)
+#    pca = PCA(n_components=n_centroids).fit(X)
+ #   bench_k_means(KMeans(init=pca.components_, n_clusters=n_centroids, n_init=1),
+#              name="PCA-based", data=X, labels=y)
     
     print(79 * '_')
 
